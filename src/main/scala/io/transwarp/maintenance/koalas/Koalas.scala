@@ -7,8 +7,7 @@ import io.transwarp.maintenance.koalas.page.MainPage
  */
 object Koalas {
   def main(args: Array[String]) {
-    val kc = new KoalasContext
-    new MainPage(kc)
-
+    val kc = new KoalasContext //初始化设备上下文
+    new MainPage(kc) //Go it!!!
   }
 }

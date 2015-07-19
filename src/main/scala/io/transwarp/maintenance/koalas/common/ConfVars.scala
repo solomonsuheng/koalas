@@ -1,5 +1,7 @@
 package io.transwarp.maintenance.koalas.common
 
+import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
+
 import scala.collection.JavaConversions._
 import scala.collection.mutable.HashMap
 

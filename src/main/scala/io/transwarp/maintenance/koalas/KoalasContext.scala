@@ -5,6 +5,7 @@ import java.util.Calendar
 
 import io.transwarp.maintenance.koalas.common.ConfVars
 import io.transwarp.maintenance.koalas.exception.KoalasException
+import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
 
 /**
  * Created by Suheng on 7/18/15.
@@ -12,10 +13,36 @@ import io.transwarp.maintenance.koalas.exception.KoalasException
 class KoalasContext {
   //new ConfVars和new ConfVars()是一样的
   var conf = new ConfVars
+  /**
+   * 获取xml中Koalas中的文件进行自动初始化
+   */
+  val autoInit = ExternalResourcesLoadUtils.loadKoalasConfigXML("autoinit")
+
+  //根据设置是否对KoalasContext中的数据进行初始化
+  init()
+
+  /**
+   * 根据xml中设置的参数选择是否要进行自动参数初始化
+   */
+  def init(): Unit = {
+    autoInit match {
+      case "true" => {
+        //进行初始化
+        this.conf.setBoolean(ConfVars.iteractiveMode, false)
+        this.conf.set("koalas.menu", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.menu"))
+        this.conf.set("koalas.workdir", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.workdir"))
+        this.conf.set("koalas.datadir", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.datadir"))
+      }
+      case _ => //println("IteractiveMode\n")
+    }
+  }
+
 
   //获取是否为交互模式，默认是交互模式
   val interactiveMode = this.conf.getBoolean(ConfVars.iteractiveMode, true)
-
+  /**
+   * input,output根据是否为交互模式进行配置
+   */
   val input = if (interactiveMode) {
     //如果是交互模式，设置获取用户输入的输入流
     new BufferedReader(new InputStreamReader((System.in)))
@@ -31,6 +58,7 @@ class KoalasContext {
     //如果不是交互模式，就不需要设置向用户的I/O
     null
   }
+
 
   //获取时间，设置时间，用户日志和文件的输出
   private val currTime = Calendar.getInstance()
@@ -77,8 +105,8 @@ class KoalasContext {
       //如果数据输出目录不存在创建，如果存在仍使用原来的存在的
       dir.mkdir()
     }
-
     dir
   }
+
 
 }

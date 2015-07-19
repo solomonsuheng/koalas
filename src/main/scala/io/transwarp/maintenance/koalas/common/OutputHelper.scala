@@ -22,7 +22,11 @@ case class OutputHelper(val stdout: PrintStream, logFileOutput: FileOutputStream
   val logOut = new PrintStream(logFileOutput)
 
   //组合输出,分别用于输出到控制台和文件目录
-  val combineOut = Array(stdout, logOut)
+  val combineOut = if (stdout != null) {
+    Array(stdout, logOut)
+  } else {
+    Array(logOut)
+  }
 
 
   //OutputHelper的println函数，分别调用组合参数中的每一个输出流FileSyste和控制台输出流

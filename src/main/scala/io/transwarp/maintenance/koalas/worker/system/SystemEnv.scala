@@ -4,8 +4,7 @@ import java.io.{File, FileOutputStream}
 
 import io.transwarp.maintenance.koalas.KoalasContext
 import io.transwarp.maintenance.koalas.common.OutputHelper
-
-import scala.collection.mutable
+import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
 
 /**
  * Created by Suheng on 7/19/15.
@@ -20,12 +19,10 @@ class SystemEnv(kc: KoalasContext) {
     val logOutput = new FileOutputStream(logFile)
     //创建输出辅助类
     val outputHelper = OutputHelper(kc.output, logOutput, kc)
-
-
     try {
       os()
     } catch {
-      case e: Throwable =>
+      case e: Throwable => e.printStackTrace()
     } finally {
       //关闭输出文件流
       logOutput.close()
@@ -37,7 +34,7 @@ class SystemEnv(kc: KoalasContext) {
      */
     def os(): Unit = {
       //从xml中获取数据，返回为map结果
-      val prop = loadSystemEnvXML("Env")
+      val prop = ExternalResourcesLoadUtils.loadSystemEnvXML("Env")
       //处理环境变量
       for ((k, v) <- prop) {
         outputHelper.dumpProperty(k.toString, v.toString)
@@ -46,36 +43,13 @@ class SystemEnv(kc: KoalasContext) {
       outputHelper.println()
 
       //处理命令
-      val cmd = loadSystemEnvXML("Cmd")
+      val cmd = ExternalResourcesLoadUtils.loadSystemEnvXML("Cmd")
       for ((k, v) <- cmd) {
         outputHelper.dumpCommand(k.toString + " " + v.toString)
       }
     }
   }
 
-  /**
-   * 从SystemEnv.xml中获取需要检查的内容存储到Map，返回
-   */
-  def loadSystemEnvXML(envOrCmd: String) = {
-    /**
-     * 为了避免从xml读入到Map中的内容没有按照xml中的顺序排列所以使用LinkedHashMap
-     * 这样可以使从xml中读取的内容按照xml中的顺序排列
-     */
-    var push: mutable.LinkedHashMap[String, String] = mutable.LinkedHashMap[String, String]()
-    //xml文件路径
-    val systemEnvXMLPath: String = "SystemEnv/SystemEnv.xml"
-    //scala function load xml file
-    val sysxml = scala.xml.XML.load(this.getClass.getClassLoader.getResource(systemEnvXMLPath))
-    //根据参数的不同加载不同xml，返回匹配xml
-    if (envOrCmd.equals("Env")) {
-      val env = (sysxml \ "System_Enviroment" \ "Env")
-      env.map(n => (push.put((n \ "@name").toString, (n \ "@desc").toString)))
-    } else if (envOrCmd.equals("Cmd")) {
-      val env = (sysxml \ "System_Command" \ "Cmd")
-      env.map(n => (push.put((n \ "@name").toString, (n \ "@args").toString)))
-    }
-    push
-  }
 
 }
 

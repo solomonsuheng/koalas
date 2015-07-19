@@ -16,5 +16,6 @@
         <Cmd name="mount" args=""/>
         <Cmd name="ifconfig" args=""/>
         <Cmd name="jps" args=""/>
+        <Cmd name="ls" args=""/>
     </System_Command>
 </System_Env>

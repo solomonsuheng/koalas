@@ -9,25 +9,39 @@ import io.transwarp.maintenance.koalas.worker.system.SystemEnv
  * Created by Suheng on 7/18/15.
  */
 class MainPage(kc: KoalasContext) {
-  //存放组建的layout
-  val layout = new SequenceLayout(kc) //kc里面存放着对于向用户交互模式输出的I/O
-
-
   //操作选项和操作对应的执行函数
   val operationMap = Seq[(String, (KoalasContext) => Unit)](
     ("System Environment Check", (kc: KoalasContext) => SystemEnv(kc).action())
-  )
+  ).toMap //seq可以通过.toMap函数获取到对应的Map
 
+
+  val layout = new SequenceLayout(kc) //kc里面存放着对于向用户交互模式输出的I/O
+
+
+  /**
+   * cli UI交互界面 interactiveMode模式，如果是交互模式才进行输出标题
+   */
+  //存放组建的layout
   //创建欢迎交互页面的windows
-  val welcomeWindow = new Window(title = "Transwarp Maintenance Tool Suite")
-  //添加欢迎界面
-  layout.addItem(welcomeWindow)
+  if (kc.interactiveMode) {
+    val welcomeWindow = new Window(title = "Transwarp Maintenance Tool Suite")
+    //添加欢迎界面组件
+    layout.addItem(welcomeWindow)
+  }
 
-  SystemEnv(kc).action()
 
-  //选项目录交互界面
-  val menu = new OptionDialog(id = "koalas.menu", title = "Menu")
-  //添加菜单交互界面
+  //选项目录交互界面组件
+  /**
+   * 如果是非交互模式必须在conf中设置koalas.menu参数
+   */
+  val menu = new OptionDialog(id = "koalas.menu",
+    title = "Menu",
+    options = operationMap.map(_._1).toSeq,
+    callback = (ans: String, kc: KoalasContext) => {
+      operationMap(ans)(kc)
+    })
+
+  //添加组件
   layout.addItem(menu)
 
   //调用layout中的每一个action函数，产生Item效果

@@ -7,7 +7,9 @@ import io.transwarp.maintenance.koalas.KoalasContext
 /**
  * Created by Suheng on 7/18/15.
  */
-class Window(val width: Int = 30, val sectionHeight: Int = 1, val title: String = "",
+class Window(val width: Int = 30,
+             val sectionHeight: Int = 1,
+             val title: String = "",
              val msg: Seq[String] = Seq()) extends Item {
 
 

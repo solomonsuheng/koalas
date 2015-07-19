@@ -19,6 +19,7 @@ object ConsoleUtils {
    */
   def dumpProperties(ps: Array[PrintStream], prop: Properties, k: String, desc: String = null, fixWidth: Int = 10): Unit = {
     var v = prop.getProperty(k)
+
     if (v == null) {
       v = ""
     }
@@ -40,6 +41,12 @@ object ConsoleUtils {
    */
 
   def dumpCommand(ps: Array[PrintStream], cmd: String, args: Seq[String] = Seq(), kc: KoalasContext): Unit = {
-    CommandExecutor(cmd, args).execute(kc, ps(0), ps(1))
+
+    if (ps.length == 1) {
+      CommandExecutor(cmd, args).execute(kc, null, ps(0))
+    } else {
+      CommandExecutor(cmd, args).execute(kc, ps(0), ps(1))
+    }
+
   }
 }
