@@ -1,0 +1,20 @@
+<System_Env>
+    <System_Enviroment>
+        <Env name="os.name" desc="OS"/>
+        <Env name="os.arch" desc="OS Arch"/>
+        <Env name="user.name" desc="User"/>
+        <Env name="java.version" desc="JVM Version"/>
+        <Env name="java.vendor" desc="JVM Vendor"/>
+        <Env name="java.home" desc="JVM Home"/>
+        <Env name="java.library.path" desc="JVM Library Path"/>
+    </System_Enviroment>
+
+    <System_Command>
+        <Cmd name="hostname" args=""/>
+        <Cmd name="hostname" args="-f"/>
+        <Cmd name="df" args=""/>
+        <Cmd name="mount" args=""/>
+        <Cmd name="ifconfig" args=""/>
+        <Cmd name="jps" args=""/>
+    </System_Command>
+</System_Env>
