@@ -129,12 +129,15 @@ class TDHEnv(kc: KoalasContext) {
 
       val currentNotLinkJars = currentJars._1 //没有链接的Jar
       val currentLinkJars = currentJars._2 //链接的Jar
+
       EnvLoad.versionNo(0) = versionNo
-      val standardJars = EnvLoad.FileToJarsMap(filename) //标准TDH Jar文件
+
+      val standardJars = EnvLoad(versionNo)getFileToJarsMap(filename) //标准TDH Jar文件
 
       val standardNotLinkJars = standardJars._1 //标准TDH 非链接Jar文件
       val standardLinkJars = standardJars._2 //标准TDH 链接Jar文件
 
+      standardNotLinkJars.foreach(println)
       notLinkJarsLessThanStandard ++= (standardNotLinkJars -- currentNotLinkJars)
       notLinkJarsMoreThanStandard ++= (currentNotLinkJars -- standardNotLinkJars)
       linkJarsLessThanStandard ++= (standardLinkJars -- currentLinkJars)
@@ -215,10 +218,14 @@ class TDHEnv(kc: KoalasContext) {
 
     if (notLinkJarsLessThanStandard.size != 0 || notLinkJarsMoreThanStandard.size != 0 ||
       linkJarsLessThanStandard.size != 0 || linkJarsMoreThanStandard.size != 0) {
-      println("notLinkJarsLessThanStandard: " + notLinkJarsLessThanStandard.size)
-      println("notLinkJarsMoreThanStandard: " + notLinkJarsMoreThanStandard.size)
-      println("linkJarsLessThanStandard: " + linkJarsLessThanStandard.size)
-      println("linkJarsMoreThanStandard: " + linkJarsMoreThanStandard.size)
+      //      println("notLinkJarsLessThanStandard: " + notLinkJarsLessThanStandard.size)
+      //      println("notLinkJarsMoreThanStandard: " + notLinkJarsMoreThanStandard.size)
+      //      println("linkJarsLessThanStandard: " + linkJarsLessThanStandard.size)
+      //      println("linkJarsMoreThanStandard: " + linkJarsMoreThanStandard.size)
+      weight(0) += notLinkJarsLessThanStandard.size
+      weight(1) += notLinkJarsMoreThanStandard.size
+      weight(2) += linkJarsLessThanStandard.size
+      weight(3) += linkJarsMoreThanStandard.size
     }
 
     //lackedDirectories.foreach(k => println(service.getServiceName + " lack of lib" + k))

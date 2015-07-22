@@ -1,0 +1,20 @@
+1.Checking versionXML of version4_0.xml
+	2.Checking service of Zookeeper
+		3.The dir doesn't exsist 
+	2.Checking service of Kafka
+		3.The dir doesn't exsist 
+	2.Checking service of IncepterML
+		3.The dir doesn't exsist 
+	2.Checking service of Hadoop-yarn
+		3.The dir doesn't exsist 
+	2.Checking service of ElasticSearch
+		3.The dir doesn't exsist 
+	2.Checking service of Hadoop
+		3.The dir exsist
+			4.Checking dir: /usr/lib/hadoop
+				5.All the jar files of : /usr/lib/hadoop
+						not link file
+							[rwx,r-x,r-x] user=[root] group=[wheel] file=[google-gson-stream-1.6.jar]
+							[rwx,r-x,r-x] user=[root] group=[wheel] file=[/usr/lib/hadoop/google-gson-stream-1.6.jar]
+							[rw-,r--,---] user=[root] group=[wheel] file=[/usr/lib/hadoop/algs4.jar]
+						link file
