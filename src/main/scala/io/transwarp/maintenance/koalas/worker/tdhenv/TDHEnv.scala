@@ -45,6 +45,9 @@ class TDHEnv(kc: KoalasContext) {
   //需要检查的集合
   val checkedService_Set: Set[Service] = checkedService.toSet
 
+  //没有安装的服务
+  val unInstalledService: mutable.HashSet[String] = new mutable.HashSet[String]()
+
   //加载服务名
   for (serviceName <- ExternalResourcesLoadUtils.loadTDHSCanServiceName()) {
     //需要koalas扫描的服务目录
@@ -75,6 +78,7 @@ class TDHEnv(kc: KoalasContext) {
 
   }
 
+
   /**
    * 该函数在MainPage中被调用
    */
@@ -88,8 +92,33 @@ class TDHEnv(kc: KoalasContext) {
     versionAndWeight.foreach(kv => TDHEnvCheck(outputHelper, kv._1, kv._2))
 
     //输出权值
-    versionAndWeight.foreach(println)
+    println("Each versionXML's weight:\n[VersionXML,(notLinkJarsLessThanStandard,notLinkJarsMoreThanStandard,linkJarsLessThanStandard,linkJarsMoreThanStandard)]:")
+    matchVersion(outputHelper, versionAndWeight)
+
+
   }
+
+  def matchVersion(outputHelper: OutputHelper, versionAndWeight: mutable.LinkedHashMap[String, ListBuffer[Int]]): Unit = {
+    var max = 0
+    var versionXML = ""
+    for (kv <- versionAndWeight) {
+      val weight = calWeight(kv._2)
+      if (weight > max) {
+        max = weight
+        versionXML = kv._1
+      }
+    }
+
+    outputHelper println ("\nThe most match versionXML is " + versionXML + "\n")
+  }
+
+  /**
+   * 计算权值
+   */
+  def calWeight(nums: ListBuffer[Int]) = {
+    nums(0) * 1 + nums(1) * 2 + nums(2) * 1 + nums(3) * 1
+  }
+
 
   /**
    * 传入versionWeight每一项对每一项进行检查
@@ -130,14 +159,12 @@ class TDHEnv(kc: KoalasContext) {
       val currentNotLinkJars = currentJars._1 //没有链接的Jar
       val currentLinkJars = currentJars._2 //链接的Jar
 
-      EnvLoad.versionNo(0) = versionNo
-
-      val standardJars = EnvLoad(versionNo)getFileToJarsMap(filename) //标准TDH Jar文件
+      val standardJars = EnvLoad(versionNo) getFileToJarsMap (filename) //标准TDH Jar文件
 
       val standardNotLinkJars = standardJars._1 //标准TDH 非链接Jar文件
       val standardLinkJars = standardJars._2 //标准TDH 链接Jar文件
 
-      standardNotLinkJars.foreach(println)
+
       notLinkJarsLessThanStandard ++= (standardNotLinkJars -- currentNotLinkJars)
       notLinkJarsMoreThanStandard ++= (currentNotLinkJars -- standardNotLinkJars)
       linkJarsLessThanStandard ++= (standardLinkJars -- currentLinkJars)
@@ -215,7 +242,7 @@ class TDHEnv(kc: KoalasContext) {
         lackedDirectories.add(dir)
       }
     }
-
+    var isJarsConsisitent = true
     if (notLinkJarsLessThanStandard.size != 0 || notLinkJarsMoreThanStandard.size != 0 ||
       linkJarsLessThanStandard.size != 0 || linkJarsMoreThanStandard.size != 0) {
       //      println("notLinkJarsLessThanStandard: " + notLinkJarsLessThanStandard.size)
@@ -226,10 +253,63 @@ class TDHEnv(kc: KoalasContext) {
       weight(1) += notLinkJarsMoreThanStandard.size
       weight(2) += linkJarsLessThanStandard.size
       weight(3) += linkJarsMoreThanStandard.size
+
+      isJarsConsisitent = false
     }
 
-    //lackedDirectories.foreach(k => println(service.getServiceName + " lack of lib" + k))
+    if (isDirectoryFine && isJarsConsisitent) {
+      outputHelper.println("\nThe Service: " + service.toString + " is fine!")
+    } else if (!isDirectoryFine && lackedDirectories.size == 1 && directories.length == 1) {
+      /*The Service only contain one directory, so we can judge the service whether exists or not
+       according to the directory whether exists or not. */
+      unInstalledService.add("\tThe Service: " + service.toString +
+        " is not installed in Current Environment!")
+    } else {
+      outputHelper.println("\n[Warning]: The following are the problems of the Service: " + service.toString +
+        " in Current Environment: ")
+      if (!isJarsConsisitent) {
+        outputHelper.println("\t[1] The Jars of the Service: " + service.toString +
+          " in Current  Environment is not consisitent with corresponding Standard Environment!")
 
+        if (linkJarsLessThanStandard.size != 0) {
+          outputHelper.println("\t\tThe Number of Link-Jars of " + service.toString +
+            " in Current Environment is Less Than that in Standard Environment, " +
+            " Lack " + linkJarsLessThanStandard.size + " Link-Jars : ")
+          linkJarsLessThanStandard.foreach(line => outputHelper.println("\t\t\t" + line.toString()))
+          outputHelper.println()
+        }
+
+        if (linkJarsMoreThanStandard.size != 0) {
+          outputHelper.println("\t\tThe Number of Link-Jars of " + service.toString +
+            " in Current Environment is More Than that in Standard Environment, " +
+            "Excess " + linkJarsMoreThanStandard.size + " Link-Jars : ")
+          linkJarsMoreThanStandard.foreach(line => outputHelper.println("\t\t\t" + line.toString()))
+          outputHelper.println()
+        }
+
+        if (notLinkJarsLessThanStandard.size != 0) {
+          outputHelper.println("\t\tThe Number of No-Link-Jars of " + service.toString +
+            " in Current Environment is Less Than that in Standard Environment, " +
+            " Lack " + notLinkJarsLessThanStandard.size + " No-Link-Jars: ")
+          notLinkJarsLessThanStandard.foreach(line => outputHelper.println("\t\t\t" + line.toString()))
+          outputHelper.println()
+        }
+
+        if (notLinkJarsMoreThanStandard.size != 0) {
+          outputHelper.println("\t\tThe Number of No-Link-Jars of " + service.toString +
+            " in Current Environment is More Than that in Standard Environment, " +
+            "Excess " + notLinkJarsMoreThanStandard.size + " No-Link-Jars: ")
+          notLinkJarsMoreThanStandard.foreach(line => outputHelper.println("\t\t\t" + line.toString()))
+          outputHelper.println()
+        }
+      }
+
+      if (!isDirectoryFine) {
+        outputHelper.println("\t[2] The Service: " + service.toString +
+          " also lack some important directories: ")
+        lackedDirectories.foreach(outputHelper.println)
+      }
+    }
   }
 
 }

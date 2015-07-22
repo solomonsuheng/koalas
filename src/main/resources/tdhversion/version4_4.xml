@@ -38,5 +38,4 @@
         <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/slf4j-log4j12-1.6.1.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/jline-0.9.94.jar"/>
     </Zookeeper>
-
 </Version>

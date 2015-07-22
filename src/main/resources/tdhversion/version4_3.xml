@@ -3,16 +3,7 @@
         <lib value="rwx rwx rwx root root /usr/lib/hadoop-hdfs/hadoop-hdfs.jar hadoop-hdfs-2.5.2-transwarp.jar"/>
         <lib value="rwx rwx rwx root root /usr/lib/hadoop-hdfs/hadoop-hdfs-nfs.jar hadoop-hdfs-nfs-2.5.2-transwarp.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/hadoop-hdfs-2.5.2-transwarp-tests.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/asm-3.2.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/jetty-6.1.26.transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/commons-daemon-1.0.13.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/commons-cli-1.2.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/hadoop-hdfs-2.5.2-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/xmlenc-0.52.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/protobuf-java-2.5.0.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/jetty-util-6.1.26.transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/jersey-core-1.9.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/guava-11.0.2.jar"/>
+
         <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/jsr305-1.3.9.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/jackson-mapper-asl-1.9.13.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hadoop-hdfs/lib/jackson-core-asl-1.9.13.jar"/>
@@ -289,28 +280,7 @@
     <Hbase component_name="Hbase">
         <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-shell.jar ./lib/hbase-shell-0.98.6-transwarp.jar"/>
         <lib value="rwx rwx rwx root root /usr/lib/hbase/chronos-client.jar ./lib/chronos-client-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-examples.jar ./lib/hbase-examples-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/lib/hadoop-core.jar /usr/lib/hadoop/hadoop-core.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-bson.jar ./lib/hbase-bson-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-testing-util.jar ./lib/hbase-testing-util-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/transaction-client.jar ./lib/transaction-client-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/transaction-coprocessor.jar ./lib/transaction-coprocessor-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/lib/zookeeper.jar /usr/lib/zookeeper/zookeeper.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-prefix-tree.jar ./lib/hbase-prefix-tree-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-server.jar ./lib/hbase-server-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-client.jar ./lib/hbase-client-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/chronos-server.jar ./lib/chronos-server-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-protocol.jar ./lib/hbase-protocol-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-hadoop-compat.jar ./lib/hbase-hadoop-compat-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-thrift.jar ./lib/hbase-thrift-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-it.jar ./lib/hbase-it-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-hadoop2-compat.jar ./lib/hbase-hadoop2-compat-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-common.jar ./lib/hbase-common-0.98.6-transwarp.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hbase/hbase-hyperbase.jar ./lib/hbase-hyperbase-0.98.6-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/aopalliance-1.0.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/jackson-core-asl-1.8.8.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/commons-codec-1.7.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/hbase-bson-0.98.6-transwarp.jar"/>
+
         <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/commons-math3-3.1.1.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/xmlenc-0.52.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hbase/lib/commons-beanutils-core-1.8.0.jar"/>
@@ -441,18 +411,7 @@
         <lib value="rwx rwx rwx root root /usr/lib/hive/lib/hive-common.jar hive-common-0.12.0-transwarp-tdh40.jar"/>
         <lib value="rwx rwx rwx root root /usr/lib/hive/lib/hive-cli.jar hive-cli-0.12.0-transwarp-tdh40.jar"/>
         <lib value="rwx rwx rwx root root /usr/lib/hive/lib/hive-contrib.jar hive-contrib-0.12.0-transwarp-tdh40.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/hive/lib/mysql-connector-java.jar /usr/share/java/mysql-connector-java.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/hive-cli-0.12.0-transwarp-tdh40.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/datanucleus-core-3.2.2.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/commons-cli-1.2.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/libfb303-0.9.0.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/jackson-core-asl-1.8.8.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/datanucleus-rdbms-3.2.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/datanucleus-api-jdo-3.2.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/reflectasm-1.07-shaded.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/jdo-api-3.0.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/commons-codec-1.6.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/hive/lib/jackson-xc-1.8.8.jar"/>
+
         <lib value="rw- r-- r-- root root /usr/lib/hive/lib/jackson-jaxrs-1.8.8.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hive/lib/commons-logging-1.1.1.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/hive/lib/transaction-client-0.98.6-transwarp.jar"/>
@@ -752,20 +711,7 @@
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/streaming/target/scala-2.10/ngmr-streaming_2.10-1.1.0-transwarp.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/jettison-1.1.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/scala-library-2.10.4.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/commons-beanutils-core-1.8.0.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/guice-3.0-tests.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/slf4j-log4j12-1.7.5.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/api-asn1-api-1.0.0-M20.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/activation-1.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/metrics-graphite-3.0.0.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/snappy-java-1.0.5.3.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/kryo-2.21.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/apacheds-i18n-2.0.0-M15.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/jersey-guice-1.9.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/external/zeromq/target/scala-2.10/ngmr-streaming-zeromq_2.10-1.1.0-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/concurrent-1.3.4.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/yarn/target/scala-2.10/yarn-parent_2.10-1.1.0-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/commons-net-3.1.jar"/>
+
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/fastutil-6.4.4.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/derby-10.4.2.0.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/jets3t-0.7.1.jar"/>
@@ -865,16 +811,7 @@
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/jersey-client-1.9.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/jetty-6.1.26.transwarp.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/httpcore-4.2.4.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/chill-java-0.3.6.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/uncommons-maths-1.2.2a.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/commons-math3-3.3.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/jetty-security-8.1.14.v20131031.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/core/target/scala-2.10/ngmr-core_2.10-1.1.0-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/commons-lang3-3.3.2.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/log4j-1.2.17.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/scalatest_2.10-2.1.5.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/jackson-jaxrs-1.9.13.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/json4s-core_2.10-3.2.10.jar"/>
+
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/mesos-0.18.1-shaded-protobuf.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/bundles/curator-recipes-2.4.0.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/ngmr/lib_managed/jars/breeze_2.10-0.9.jar"/>
@@ -913,18 +850,7 @@
         <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/netty-3.2.2.Final.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/slf4j-log4j12-1.6.1.jar"/>
         <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/jline-0.9.94.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/zookeeper-3.4.5-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/log4j-1.2.15.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/slf4j-api-1.6.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/netty-3.2.2.Final.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/slf4j-log4j12-1.6.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/jline-0.9.94.jar"/>
-        <lib value="rwx rwx rwx root root /usr/lib/zookeeper/zookeeper.jar zookeeper-3.4.5-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/zookeeper-3.4.5-transwarp.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/log4j-1.2.15.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/slf4j-api-1.6.1.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/netty-3.2.2.Final.jar"/>
-        <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/slf4j-log4j12-1.6.1.jar"/>
+     
         <lib value="rw- r-- r-- root root /usr/lib/zookeeper/lib/jline-0.9.94.jar"/>
     </Zookeeper>
 </Version>
