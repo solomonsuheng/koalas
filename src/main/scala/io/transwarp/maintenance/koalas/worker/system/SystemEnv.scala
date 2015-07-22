@@ -65,7 +65,7 @@ object SystemEnv {
    * apply方法返回的是伴生类的对象
    * 这样可以省去new，这样做的好处就是在嵌套表达式中很方便
    */
-  def apply(kc: KoalasContext): SystemEnv = {
+  def apply(kc: KoalasContext) = {
     new SystemEnv(kc)
   }
 }

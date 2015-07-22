@@ -1,9 +1,12 @@
 package io.transwarp.maintenance.koalas.page
 
+import java.io.File
+
 import io.transwarp.maintenance.koalas.KoalasContext
 import io.transwarp.maintenance.koalas.layout.SequenceLayout
 import io.transwarp.maintenance.koalas.widgets.{OptionDialog, Window}
 import io.transwarp.maintenance.koalas.worker.system.SystemEnv
+import io.transwarp.maintenance.koalas.worker.tdhenv.TDHEnv
 
 /**
  * Created by Suheng on 7/18/15.
@@ -11,7 +14,10 @@ import io.transwarp.maintenance.koalas.worker.system.SystemEnv
 class MainPage(kc: KoalasContext) {
   //操作选项和操作对应的执行函数
   val operationMap = Seq[(String, (KoalasContext) => Unit)](
-    ("System Environment Check", (kc: KoalasContext) => SystemEnv(kc).action())
+    //系统环境检查
+    ("System Environment Check", (kc: KoalasContext) => SystemEnv(kc).action()),
+    //TDH环境检查
+    ("TDH Environment Check", (kc: KoalasContext) => TDHEnv(kc).action())
   ).toMap //seq可以通过.toMap函数获取到对应的Map
 
 

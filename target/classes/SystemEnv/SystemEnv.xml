@@ -17,5 +17,6 @@
         <Cmd name="ifconfig" args=""/>
         <Cmd name="jps" args=""/>
         <Cmd name="ls" args=""/>
+        <Cmd name="file" args=""/>
     </System_Command>
 </System_Env>

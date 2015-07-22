@@ -1,6 +1,6 @@
 package io.transwarp.maintenance.koalas.common
 
-import java.io.PrintStream
+import java.io.{InputStreamReader, LineNumberReader, PrintStream}
 
 import io.transwarp.maintenance.koalas.KoalasContext
 
@@ -68,6 +68,28 @@ class CommandExecutor(val cmd: String, val args: Seq[String] = Seq()) extends Ex
 object CommandExecutor {
   def apply(cmd: String, args: Seq[String] = Seq()): CommandExecutor = {
     new CommandExecutor(cmd, args)
+  }
+
+  def executeShellWithArguments(cmd: String, filename: String): (String, Int) = {
+    val process: Process = Runtime.getRuntime().exec(cmd + filename)
+    val issuccess: Int = process.waitFor()
+    try {
+      val br = new LineNumberReader(new InputStreamReader(process.getInputStream()))
+      val sb = new StringBuffer()
+      var continue = true
+      while (continue) {
+        val line = br.readLine()
+        val option: Option[String] = Option(line)
+        option match {
+          case Some(x) => sb.append(x + "\n")
+          case _ => continue = false
+        }
+      }
+      //      println(sb.toString)
+      (sb.toString, issuccess)
+    } catch {
+      case e: Exception => throw new RuntimeException("get shell result error!!!")
+    }
   }
 
   def main(args: Array[String]) {

@@ -1,0 +1,19 @@
+<NeededScanLib>
+    <Hadoop value="/usr/lib/hadoop"/>
+    <Hadoop-hdfs value="/usr/lib/hadoop-hdfs"/>
+    <Hadoop-yarn value="/usr/lib/hadoop-mapreduce"/>
+    <Hadoop-mapreduce value="/usr/lib/hadoop-yarn"/>
+    <IncepterSQL value="/usr/lib/hive /usr/lib/ngmr /usr/lib/ngmr-shell /usr/lib/scala"/>
+    <IncepterML value="/usr/lib/sparkR"/>
+    <Hyperbase value="/usr/lib/hbase"/>
+    <Zookeeper value="/usr/lib/zookeeper"/>
+    <Oozie value="/usr/lib/oozie"/>
+    <Kafka value="/usr/lib/kafka"/>
+    <Sqoop value="/usr/lib/sqoop"/>
+    <Mahout value="/usr/lib/mahout"/>
+    <Flume value="/usr/lib/flume"/>
+    <Pig value="/usr/lib/pig"/>
+    <ElasticSearch value="/usr/lib/elasticsearch"/>
+    <Bigtop-tomcat value="/usr/lib/bigtop-tomcat"/>
+    <Bigtop-util value="/usr/lib/bigtop-util"/>
+</NeededScanLib>

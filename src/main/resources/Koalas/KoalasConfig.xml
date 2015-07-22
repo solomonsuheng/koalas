@@ -1,7 +1,7 @@
 <KoalasContext>
-    <autoinit value="true"/>
+    <autoinit value="false"/>
     <koalas.menu value="System Environment Check"></koalas.menu>
-    <iteractiveMode value="true"/>
-    <koalas.workdir value="/Users/gesuheng/WorkSpace/transwarpProject/temp"/>
-    <koalas.datadir value="/Users/gesuheng/WorkSpace/transwarpProject/temp"/>
+    <interactiveMode value="false"/>
+    <koalas.workdir value="."/>
+    <koalas.datadir value="."/>
 </KoalasContext>
