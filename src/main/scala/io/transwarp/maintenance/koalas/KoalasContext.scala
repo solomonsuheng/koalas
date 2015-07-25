@@ -5,7 +5,6 @@ import java.util.Calendar
 
 import io.transwarp.maintenance.koalas.common.ConfVars
 import io.transwarp.maintenance.koalas.exception.KoalasException
-import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
 
 /**
  * Created by Suheng on 7/18/15.
@@ -16,26 +15,26 @@ class KoalasContext {
   /**
    * 获取xml中Koalas中的文件进行自动初始化
    */
-  val autoInit = ExternalResourcesLoadUtils.loadKoalasConfigXML("autoinit")
+  //  val autoInit = ExternalResourcesLoadUtils.loadKoalasConfigXML("autoinit")
 
   //根据设置是否对KoalasContext中的数据进行初始化
-  init()
+  //  init()
 
   /**
    * 根据xml中设置的参数选择是否要进行自动参数初始化
    */
-  def init(): Unit = {
-    autoInit match {
-      case "true" => {
-        //进行初始化
-        this.conf.setBoolean(ConfVars.iteractiveMode, false)
-        this.conf.set("koalas.menu", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.menu"))
-        this.conf.set("koalas.workdir", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.workdir"))
-        this.conf.set("koalas.datadir", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.datadir"))
-      }
-      case _ => //println("IteractiveMode\n")
-    }
-  }
+  //  def init(): Unit = {
+  //    autoInit match {
+  //      case "true" => {
+  //        //进行初始化
+  //        this.conf.setBoolean(ConfVars.iteractiveMode, false)
+  //        this.conf.set("koalas.menu", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.menu"))
+  //        this.conf.set("koalas.workdir", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.workdir"))
+  //        this.conf.set("koalas.datadir", ExternalResourcesLoadUtils.loadKoalasConfigXML("koalas.datadir"))
+  //      }
+  //      case _ => //println("IteractiveMode\n")
+  //    }
+  //  }
 
 
   //获取是否为交互模式，默认是交互模式

@@ -1,0 +1,25 @@
+TDH Environment Check Result:
+
+[1]The most match versionXML is version4_3.xml 
+	Here are the information:
+	1.notLinkJarsLessThanStandard: 65
+	2.notLinkJarsMoreThanStandard: 3
+	3.linkJarsLessThanStandard: 5
+	4.linkJarsMoreThanStandard: 0
+
+[2]The Services:
+	The Service: [Pig] is not installed in Current Environment!
+	The Service: [Sqoop] is not installed in Current Environment!
+	The Service: [Bigtop-util] is not installed in Current Environment!
+	The Service: [Bigtop-tomcat] is not installed in Current Environment!
+	The Service: [Hyperbase] is not installed in Current Environment!
+	The Service: [Oozie] is not installed in Current Environment!
+	The Service: [Flume] is not installed in Current Environment!
+	The Service: [Zookeeper] is not installed in Current Environment!
+	The Service: [Hadoop-hdfs] is not installed in Current Environment!
+	The Service: [ElasticSearch] is not installed in Current Environment!
+	The Service: [Hadoop-mapreduce] is not installed in Current Environment!
+	The Service: [Mahout] is not installed in Current Environment!
+	The Service: [Hadoop-yarn] is not installed in Current Environment!
+	The Service: [Kafka] is not installed in Current Environment!
+	The Service: [IncepterML] is not installed in Current Environment!
