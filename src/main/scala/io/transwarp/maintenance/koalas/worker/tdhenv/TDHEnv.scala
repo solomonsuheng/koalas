@@ -103,9 +103,9 @@ class TDHEnv(kc: KoalasContext) {
     matchVersion(outputHelper, versionAndWeight)
 
     val logPath = ExternalResourcesLoadUtils.loadTDHLogXML()
-
-    logPath.foreach(kv => ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kv.substring(9) + ".zip",
-      new File(kv), Array(1073741824)).zip())
+    //    logPath.foreach(println)
+    logPath.foreach(kv => ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kv.split("\\:")(0).substring(9) + ".zip",
+      new File(kv.split("\\:")(0)), kv.split("\\:")(1)).zip())
     //压缩文件
     //    ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kc.workingDir.getName + ".zip",
     //      new File("/Users/gesuheng/WorkSpace/scalaWorkSpace/zookeeper.log.1")).zip()
