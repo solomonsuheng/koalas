@@ -22,6 +22,16 @@ object ExternalResourcesLoadUtils {
   }
 
   /**
+   * 获取日志文件xml
+   */
+  def loadTDHLogXML() = {
+    val tdhLogXML = loadXMLByScalaWithPath("tdhlog/tdhlog.xml")
+    val libPath = tdhLogXML \\ "@value"
+    libPath.toArray.map(_.toString)
+  }
+
+
+  /**
    * 读取有多少种versionxml
    */
   def loadHowManyVersionXML() = {

@@ -1,0 +1,7 @@
+<TDHLog>
+    <Yarn value="/var/log/yarn1:100m"/>
+    <Zookeeper value="/var/log/zookeeper1"/>
+    <Oozie value="/var/log/oozie1"/>
+    <Hdfs value="var/log/hdfs1"/>
+    <Hyperbase value="/var/log/hyperbase1"/>
+</TDHLog>

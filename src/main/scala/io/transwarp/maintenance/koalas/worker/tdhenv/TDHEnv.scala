@@ -4,7 +4,7 @@ import java.io.{File, FileOutputStream}
 
 import io.transwarp.maintenance.koalas.KoalasContext
 import io.transwarp.maintenance.koalas.common.{CommandExecutor, OutputHelper}
-import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
+import io.transwarp.maintenance.koalas.utils.{ExternalResourcesLoadUtils, ZipCompressingUtils}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -38,7 +38,8 @@ class Service(serviceName: String, directories: ListBuffer[String]) {
 class TDHEnv(kc: KoalasContext) {
   //日志输出目录
   val logFile = new File(kc.workingDir, "TDHEnvCheck.log")
-
+  //打包日志
+  val zipLogFile = new File(kc.workingDir, "zipLog.log")
   //添加需要检查当前环境的目录
   val checkedService: mutable.HashSet[Service] = new mutable.HashSet[Service]()
 
@@ -84,18 +85,30 @@ class TDHEnv(kc: KoalasContext) {
     val logOutput = new FileOutputStream(logFile)
     val outputHelper = OutputHelper(kc.output, logOutput, kc)
 
+
+
     //初始化versionAndWeight
     mulVersionCheck()
     var current = 0
     println("\nProgress...")
     versionAndWeight.foreach(kv => {
-      TDHEnvCheck(outputHelper, kv._1, kv._2, versionAndWeight.size, current); current += 1
+      TDHEnvCheck(outputHelper, kv._1, kv._2, versionAndWeight.size, current)
+      current += 1
     })
     print("\r100%\n\n")
+
 
     //输出权值
     //println("Each versionXML's weight:\n[VersionXML,(notLinkJarsLessThanStandard,notLinkJarsMoreThanStandard,linkJarsLessThanStandard,linkJarsMoreThanStandard)]:")
     matchVersion(outputHelper, versionAndWeight)
+
+    val logPath = ExternalResourcesLoadUtils.loadTDHLogXML()
+
+    logPath.foreach(kv => ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kv.substring(9) + ".zip",
+      new File(kv), Array(1073741824)).zip())
+    //压缩文件
+    //    ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kc.workingDir.getName + ".zip",
+    //      new File("/Users/gesuheng/WorkSpace/scalaWorkSpace/zookeeper.log.1")).zip()
   }
 
   def matchVersion(outputHelper: OutputHelper, versionAndWeight: mutable.LinkedHashMap[String, ListBuffer[Int]]): Unit = {
@@ -140,7 +153,7 @@ class TDHEnv(kc: KoalasContext) {
    */
   def TDHEnvCheck(outputHelper: OutputHelper, versionNo: String, weight: ListBuffer[Int], size: Int, current: Int) = {
     //    outputHelper.println("1.Checking versionXML of " + versionNo)
-    print("\r"+(current*1.0/size)*100+"%")
+    print("\r" + (current * 1.0 / size) * 100 + "%")
     checkedService.foreach(service => mainEnviromentCheck(outputHelper, service, versionNo, weight))
   }
 
