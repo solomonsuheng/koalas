@@ -1,7 +1,5 @@
 package io.transwarp.maintenance.koalas.page
 
-import java.io.File
-
 import io.transwarp.maintenance.koalas.KoalasContext
 import io.transwarp.maintenance.koalas.layout.SequenceLayout
 import io.transwarp.maintenance.koalas.widgets.{OptionDialog, Window}
@@ -20,9 +18,7 @@ class MainPage(kc: KoalasContext) {
     ("TDH Environment Check", (kc: KoalasContext) => TDHEnv(kc).action())
   ).toMap //seq可以通过.toMap函数获取到对应的Map
 
-
   val layout = new SequenceLayout(kc) //kc里面存放着对于向用户交互模式输出的I/O
-
 
   /**
    * cli UI交互界面 interactiveMode模式，如果是交互模式才进行输出标题
@@ -52,6 +48,4 @@ class MainPage(kc: KoalasContext) {
 
   //调用layout中的每一个action函数，产生Item效果
   layout.action(kc)
-
-
 }

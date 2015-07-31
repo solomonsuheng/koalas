@@ -6,97 +6,100 @@ import java.util.zip.{ZipEntry, ZipOutputStream}
 /**
  * Created by Suheng on 7/27/15.
  */
-class Demo(zipFileName: String, inputFile: File, size: String) {
 
-  //压缩
-  def zip(): Unit = {
-    //    println("Compressing log...")
-    //  println(inputFile.getAbsolutePath)
-    try {
-      val f = new File(zipFileName)
+class Demo(zipFileName: String, file: File, maxSize: String, tempFilePath: String) {
+  //zipFileName传入进来的是压缩后目录的名字和路径
+  //inputFile存放的是要压缩的路径如/var/log/zookeeper1
+  /**
+   * inputFile中获取文件先进行.log然后是.log.1进行扫描
+   */
+  def zipFile(inputFileName: String) = {
+    //input file
+    val file = new File(inputFileName)
 
-      if (!inputFile.exists()) {
-        //        println("There is no compressing log path")
-        return
-      }
-      val out = new ZipOutputStream(new FileOutputStream(f))
-      val bo = new BufferedOutputStream(out)
-      zip(out, inputFile, inputFile.getName, bo)
-      bo.close()
-      out.close()
+    val in = new FileInputStream(file)
+
+    //out put file
+    val out = new ZipOutputStream(new FileOutputStream(zipFileName))
+
+    out.putNextEntry(new ZipEntry(file.getName))
+
+    val bytes = new Array[Byte](1024)
+
+    var len = in.read(bytes, 0, 1024)
+    while (len > 0) {
+      out.write(bytes, 0, len)
+      len = in.read(bytes, 0, 1024)
     }
-    catch {
-      case e: FileNotFoundException => e.printStackTrace()
-    }
 
-    //    println("Compressed...")
+    out.close
+    in.close
   }
 
-  //解压
-  def zip(out: ZipOutputStream, f: File, base: String, bo: BufferedOutputStream): Unit = {
 
-    if (f.isDirectory) {
-      val fl = f.listFiles()
-      if (fl.length == 0) {
-        out.putNextEntry(new ZipEntry(base + "/"))
-        //        println(base + "/")
-      }
-      for (i <- 0 to fl.length - 1) {
-        zip(out, fl(i), base + "/" + fl(i).getName, bo)
-      }
-    } else {
-      out.putNextEntry(new ZipEntry(base))
-      //println(base)
-      val in = new FileInputStream(f)
-      val bi = new BufferedInputStream(in)
-      var b = 0
-      var total = 0
+  def tail(): Unit = {
+    val fileListTotal = file.list()
+    val tempFile = new File(tempFilePath)
+    val tempFileOutput = new DataOutputStream(new FileOutputStream(tempFile))
+    if (!file.exists()) {
+      //文件不存在
+      return
+    }
+    fileListTotal.foreach(fileList => aux(fileList))
 
-      val bytes = new Array[Byte](1024)
-      b = bi.read(bytes, 0, 1024)
-      //此处不能使用(b = bi.read())!=-1,Scala会表达式返回Unit
-      while (b != -1) {
-        total += b
-        if (total > (size.toInt * 1048576)) {
-          //获取指定大小的字节数进行压缩
-          bi.close()
-          in.close()
-          return
+    def aux(fileList: String) {
+      val fileHander = new RandomAccessFile(file.getAbsoluteFile + "/" + fileList, "r")
+      val fileLength = fileHander.length()
+      var point = fileLength - 1
+      var sb = new StringBuffer()
+      var s: Long = 0
+      while (point > 0) {
+        fileHander.seek(point)
+        val c = fileHander.readByte().toChar
+        s += 1
+        if (c == 0xA || c == 0xD) {
+          val stringBuilder = sb.reverse().toString
+
+          //        println(stringBuilder)
+          try {
+            tempFileOutput.writeBytes(stringBuilder + "\n")
+          } catch {
+            case ex =>
+          }
+
+          sb = new StringBuffer()
+
+          if (s > (maxSize.toInt * 1048576)) {
+            tempFileOutput.close()
+            zipFile(tempFile.getAbsolutePath)
+            tempFile.delete()
+            //          println(total)
+            return
+          }
+        } else {
+          sb.append(c)
         }
-
-        bo.write(bytes, 0, b)
-        b = bi.read(bytes, 0, 1024)
+        point -= 1
       }
-      //      println(total / 1048576.0 + " size")
-      bi.close()
-      in.close()
     }
   }
 }
 
 object Demo {
-  def main(args: Array[String]): Unit = {
-        val r = new RandomAccessFile("/Users/gesuheng/WorkSpace/scalaWorkSpace/testInfo", "r")
-        val len = r.length()
-        var pos = len - 1
-        while (pos > -1) {
-          r.seek(pos)
-          if (r.readByte() == '\n') {
-            println(r.readLine())
-          }
-          pos -= 1
-        }
-
-        r.close()
-//    try {
-//      Demo("/Users/gesuheng/WorkSpace/scalaWorkSpace/zookeeper.log.1.zip",
-//        new File("/Users/gesuheng/WorkSpace/scalaWorkSpace/test/zookeeper.log.1"), "70").zip()
-//    } catch {
-//      case e => e.printStackTrace()
-//    }
+  def apply(zipFileName: String, file: File, maxSize: String, tempFilePath: String) = {
+    new Demo(zipFileName: String, file: File, maxSize: String, tempFilePath: String)
   }
 
-  def apply(zipFileName: String, inputFile: File, size: String) = {
-    new Demo(zipFileName, inputFile, size)
+  def main(args: Array[String]) {
+    val path = "/var/log/zookeeper1:10"
+    val outputZipPath = "/Users/gesuheng/WorkSpace/scalaWorkSpace/" + "pp" + ".zip"
+    val d = new Demo(outputZipPath, new File(path.split("\\:")(0) + "/"), path.split("\\:")(1), "/Users/gesuheng/WorkSpace/scalaWorkSpace/tempFile")
+    d.tail()
+    //    val f = new File(path)
+
+    //    val fileList = f.list()
+
+    //    d.tail(new File("/var/log/zookeeper1/" + fileList(0)))
   }
 }
+

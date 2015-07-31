@@ -1,6 +1,6 @@
 <TDHLog>
     <Yarn value="/var/log/yarn1:100"/>
-    <Zookeeper value="/var/log/zookeeper1:30"/>
+    <Zookeeper value="/var/log/zookeeper1:1"/>
     <Oozie value="/var/log/oozie1:30"/>
     <Hdfs value="var/log/hdfs1:30"/>
     <Hyperbase value="/var/log/hyperbase1:30"/>

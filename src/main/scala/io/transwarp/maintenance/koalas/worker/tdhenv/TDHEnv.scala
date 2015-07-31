@@ -2,9 +2,9 @@ package io.transwarp.maintenance.koalas.worker.tdhenv
 
 import java.io.{File, FileOutputStream}
 
-import io.transwarp.maintenance.koalas.KoalasContext
+import io.transwarp.maintenance.koalas.{ZipCompressingUtils, KoalasContext}
 import io.transwarp.maintenance.koalas.common.{CommandExecutor, OutputHelper}
-import io.transwarp.maintenance.koalas.utils.{ExternalResourcesLoadUtils, ZipCompressingUtils}
+import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -85,8 +85,6 @@ class TDHEnv(kc: KoalasContext) {
     val logOutput = new FileOutputStream(logFile)
     val outputHelper = OutputHelper(kc.output, logOutput, kc)
 
-
-
     //初始化versionAndWeight
     mulVersionCheck()
     var current = 0
@@ -105,7 +103,7 @@ class TDHEnv(kc: KoalasContext) {
     val logPath = ExternalResourcesLoadUtils.loadTDHLogXML()
     //    logPath.foreach(println)
     logPath.foreach(kv => ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kv.split("\\:")(0).substring(9) + ".zip",
-      new File(kv.split("\\:")(0)), kv.split("\\:")(1)).zip())
+      new File(kv.split("\\:")(0)), kv.split("\\:")(1), "log/" + kc.workingDir.getName + "/" + kv.split("\\:")(0).substring(9) + ".tmp").tail())
     //压缩文件
     //    ZipCompressingUtils("log/" + kc.workingDir.getName + "/" + kc.workingDir.getName + ".zip",
     //      new File("/Users/gesuheng/WorkSpace/scalaWorkSpace/zookeeper.log.1")).zip()
