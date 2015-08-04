@@ -1,7 +1,0 @@
-<KoalasContext>
-    <autoinit value="false"/>
-    <koalas.menu value="System Environment Check"></koalas.menu>
-    <interactiveMode value="false"/>
-    <koalas.workdir value="."/>
-    <koalas.datadir value="."/>
-</KoalasContext>
