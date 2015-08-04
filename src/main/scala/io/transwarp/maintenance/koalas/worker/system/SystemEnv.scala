@@ -4,7 +4,7 @@ import java.io.{File, FileOutputStream}
 
 import io.transwarp.maintenance.koalas.KoalasContext
 import io.transwarp.maintenance.koalas.common.OutputHelper
-import io.transwarp.maintenance.koalas.utils.ExternalResourcesLoadUtils
+import io.transwarp.maintenance.koalas.utils.{MakeStandardXML, ExternalResourcesLoadUtils}
 
 /**
  * Created by Suheng on 7/19/15.
@@ -49,7 +49,10 @@ class SystemEnv(kc: KoalasContext) {
       }
     }
   }
-
+  def makeStandardXML(): Unit ={
+    MakeStandardXML().getStandardTDHXML()
+    println("Done.")
+  }
 
 }
 

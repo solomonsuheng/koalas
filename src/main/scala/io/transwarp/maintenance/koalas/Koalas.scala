@@ -12,4 +12,3 @@ object Koalas {
         new MainPage(kc) //Go it!!!
   }
 }
-

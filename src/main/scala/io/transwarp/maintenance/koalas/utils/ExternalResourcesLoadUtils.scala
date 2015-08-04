@@ -2,8 +2,8 @@ package io.transwarp.maintenance.koalas.utils
 
 import io.transwarp.maintenance.koalas.worker.tdhenv.Service
 
-import scala.collection.mutable
 import scala.collection.mutable.{LinkedHashMap, ListBuffer}
+import scala.collection.mutable
 
 /**
  * Created by Suheng on 7/19/15.
@@ -57,7 +57,6 @@ object ExternalResourcesLoadUtils {
     resulthashMap
   }
 
-
   /**
    * 获取TDHScanLib.xml中所有要检查的serviceName
    */
@@ -66,6 +65,7 @@ object ExternalResourcesLoadUtils {
     val tdhScanLibXML = loadXMLByScalaWithPath(tdhScanLibXMLPath)
     (tdhScanLibXML \ "_").toString.split("\\>").map(getServiceName(_)).toSet
   }
+
 
   def getServiceName(service: String) = {
     val k = service.split(" ")(0).substring(1)
@@ -86,6 +86,22 @@ object ExternalResourcesLoadUtils {
     new Service(serviceName, resultScanLib)
   }
 
+  /**
+   * 获取TDHScanLib.xml中检查服务的路径
+   */
+  def loadTDHScanFilePath() = {
+    val resultScanLib = ListBuffer[String]()
+    val tdhScanLibXMLPath = "tdhenv/TDHScanLib.xml"
+    val xml = loadXMLByScalaWithPath(tdhScanLibXMLPath)
+    val tempPath = (xml \\ "@value").toArray.map(_.toString)
+
+    //获取所有FilePath
+    tempPath.foreach(kv => {
+      kv.split(" ").foreach(resultScanLib += _)
+    })
+
+    resultScanLib.toArray
+  }
 
   /**
    * 从KoalasConfig.xml中获取默认配置

@@ -3,6 +3,8 @@ package io.transwarp.maintenance.koalas
 import java.io._
 import java.util.zip.{ZipEntry, ZipOutputStream}
 
+import scala.xml.{Node, NodeSeq}
+
 /**
  * Created by Suheng on 7/27/15.
  */
@@ -86,20 +88,22 @@ class Demo(zipFileName: String, file: File, maxSize: String, tempFilePath: Strin
 }
 
 object Demo {
-  def apply(zipFileName: String, file: File, maxSize: String, tempFilePath: String) = {
-    new Demo(zipFileName: String, file: File, maxSize: String, tempFilePath: String)
+  def main(args: Array[String]): Unit = {
+
+    val xml= results("Hadoop", 10, new NodeSeq {
+      override def theSeq: Seq[Node] = {
+        return Seq[Node]()
+      }
+    })
+    println(xml)
   }
 
-  def main(args: Array[String]) {
-    val path = "/var/log/zookeeper1:10"
-    val outputZipPath = "/Users/gesuheng/WorkSpace/scalaWorkSpace/" + "pp" + ".zip"
-    val d = new Demo(outputZipPath, new File(path.split("\\:")(0) + "/"), path.split("\\:")(1), "/Users/gesuheng/WorkSpace/scalaWorkSpace/tempFile")
-    d.tail()
-    //    val f = new File(path)
-
-    //    val fileList = f.list()
-
-    //    d.tail(new File("/var/log/zookeeper1/" + fileList(0)))
+  def results(name: String, cnt: Int, element: NodeSeq): Any = {
+    if (cnt > 0) {
+      return <name component_name={name}>
+        {element}
+      </name>
+    }
   }
 }
 

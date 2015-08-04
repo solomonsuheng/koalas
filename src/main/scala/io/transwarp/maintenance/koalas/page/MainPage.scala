@@ -13,6 +13,7 @@ class MainPage(kc: KoalasContext) {
   //操作选项和操作对应的执行函数
   val operationMap = Seq[(String, (KoalasContext) => Unit)](
     //系统环境检查
+    ("Standard TDH Version XML output", (kc: KoalasContext) => SystemEnv(kc).makeStandardXML()),
     ("System Environment Check", (kc: KoalasContext) => SystemEnv(kc).action()),
     //TDH环境检查
     ("TDH Environment Check", (kc: KoalasContext) => TDHEnv(kc).action())
