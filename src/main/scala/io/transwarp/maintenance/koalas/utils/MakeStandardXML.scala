@@ -1,6 +1,7 @@
 package io.transwarp.maintenance.koalas.utils
 
-import java.io.{File, PrintWriter}
+import java.io.{File, FileNotFoundException, PrintWriter}
+import java.util.Scanner
 
 import io.transwarp.maintenance.koalas.common.CommandExecutor
 
@@ -15,7 +16,7 @@ import scala.collection.mutable.ListBuffer
  * 调用该功能扫描TDH标准环境的XML
  * 生成标准XML
  */
-class MakeStandardXML {
+class MakeStandardXML(fileName: String) {
   /**
    * 获取需要生成jar文件的标准路径xml->TDHScanLib.xml
    * 返回每一个路径用于扫描
@@ -84,29 +85,46 @@ class MakeStandardXML {
     getFilePathByTDHSCanLibXML().
       foreach(kv => {
       libAndItsLibPath.put(kv.split("\\/")(3), new ListBuffer[String]())
-      MakeStandardXML().scanFileListByGiveFilePath(kv, libAndItsLibPath.getOrElse(kv.split("\\/")(3), new ListBuffer[String]()))
+      scanFileListByGiveFilePath(kv, libAndItsLibPath.getOrElse(kv.split("\\/")(3), new ListBuffer[String]()))
     })
     val sb = new StringBuffer()
     sb.append("<Version>")
-//    libAndItsLibPath.foreach(println)
+    //    libAndItsLibPath.foreach(println)
     libAndItsLibPath.foreach(kv => {
-      sb.append(MakeStandardXML().makeXML(kv._1.capitalize, kv._2))
+      sb.append(makeXML(kv._1.capitalize, kv._2))
     })
     sb.append("</Version>")
-//    println(sb.toString)
-    val writer = new PrintWriter(new File("tdhStandardVersionOutput.xml"))
+    //    println(sb.toString)
+    val writer = new PrintWriter(new File(fileName))
     writer.write(sb.toString)
     writer.close
   }
 }
 
 object MakeStandardXML {
-  def apply() = {
-    new MakeStandardXML()
+  def apply(fileName: String) = {
+    new MakeStandardXML(fileName)
   }
 
   def main(args: Array[String]): Unit = {
-    MakeStandardXML().getStandardTDHXML()
+    var flag = true
+    while (flag) {
+      try {
+        outPut()
+        flag = false
+      } catch {
+        case ex: FileNotFoundException => {
+          println("Input file not found try again")
+        }
+      }
+    }
+  }
 
+  def outPut(): Unit = {
+    val sc = new Scanner(System.in)
+    println("Please Input File Name (eg: 4_3, 5_1): ")
+    val filePath = sc.nextLine()
+    MakeStandardXML("version"+filePath+".xml").getStandardTDHXML()
+    println("StandardTDHXML Output Done")
   }
 }

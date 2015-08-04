@@ -49,10 +49,6 @@ class SystemEnv(kc: KoalasContext) {
       }
     }
   }
-  def makeStandardXML(): Unit ={
-    MakeStandardXML().getStandardTDHXML()
-    println("Done.")
-  }
 
 }
 
